@@ -11,11 +11,9 @@ Your system will have to use two types of information for performing this normal
 - contextual information (the context surrounding a given position helps guessing which correct word are possible in this position)
 - formal similarity iformation (a misspelled/non-standard word is usually similar to its correct counterpart)
 
-You are advised to program your system in Python, but this is not mandatory (although using context2vec makes Python a reasonable choice)
-
 For dealing with contextual information, you will use the [*context2vec* program](https://github.com/orenmel/context2vec).
 
-For dealing with formal similarity, you will use the notion of edit distance as computed by the Levenshtein algortithm (or any improvement thereof that you would prefer). You are requested to code yourself the algorithm using dynamic programming (i.e. you are not allowed to use an existing package for computing edit distance).
+For dealing with formal similarity, you will use the notion of edit distance as computed by the Levenshtein algorithm (or any improvement thereof that you would prefer). You are requested to code yourself the algorithm using dynamic programming (i.e. you are not allowed to use an existing package for computing edit distance).
 
 Beyond these constraints, you are free to do whatever you feel useful:
 - You can train context2vec models or use existing ones (if you want to re-train context2vec, you will need a training corpus, which you can create by using tweet corpus creation tools; alternatively, you can play with the corpus provided in this folder).
@@ -23,19 +21,35 @@ Beyond these constraints, you are free to do whatever you feel useful:
 - You can also develop complementary resources: normalisation lexicon, word embeddings such as those provided by GloVe (tweet-based embeddings available, see [here](https://nlp.stanford.edu/projects/glove/)), etc.
 - You can design ways to deal with one-to-many (e.g. _ttyl_ -> _talk to you later_)  and even many-to-many mappings, or chose to only deal with one-to-one mappings.
 
+## Dependencies
 
-## Assignment deliverable
-Your assignment will be sent in the form of a tgz archive that will contain:
-1. a report (min 1 full page, max 2 full pages, font size 11pt, reasonable margins, PDF format, in English or French) **named MVA\_TP3\__LASTNAME_\__Firstname_\_report.pdf** containing 2 sections:
-     - a first section describing how your system works, why you decided to design it the way you did, how you built it, which existing software and resources you used, and which software and resources you developed yourself, why, and how,
-     - a second section describing which cases are correctly handled by your system, which cases are not handled or not properly handled (overnormalisations and missed normalisations), a brief discussion about the causes of these errors and a few thoughts about how your system could be improved
-2. a folder named *system* containing your system. This folder will contain (at least):
-     - a shell script named run_system.sh that takes as a first argument the path to a raw corpus to be normalised; this script will assume that the context2vec directory is stored in the variable $CONTEXT2VECDIR
-     - a README file describing other options or argument to run_system.sh (or explicitely stating the absence thereof)
+- [*context2vec* program](https://github.com/orenmel/context2vec)
+- Chainer v1.7
+- NLTK
 
-## Handing the assignment
-Send your tgz archive to mva.speech.language@gmail.com before the next class on Monday, February 19th. You must follow the following naming conventions:
-1. Start the title of your email with "TP3".
-2. Name your tgz archive according to the following pattern: **MVA\_TP3\__LASTNAME_\__Firstname_.tgz**
+## Data
+
+Use any text file containing tweets. The program will read tweets line by line.
+
+The program expects the [*UkWac*](http://irsrv2.cs.biu.ac.il/downloads/context2vec/context2vec.ukwac.model.package.tar.gz) model in the /model folder. 
+
+
+## How to run
+
+Run the following command: 
+
+- $ <b>./run_system.sh number_of_tweets_to_normalize</b> 
+
+## My approach
+
+Details of my approach to this problem can be found in the IPython notebook. 
+However, here is a summary of my strategy to return clean tweets.
+
+In brief, I am trying to normalize tweet so as to have no contractions, no abbreviations, no misspelled words. The tweet must look as much as possible as properly written English. All special characters (except hashtags) must be deleted, and I also remove URLs, non-ASCII text, and HTML.
+
+
+
+
+
 
 
