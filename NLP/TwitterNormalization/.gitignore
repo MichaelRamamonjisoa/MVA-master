@@ -1,8 +1,8 @@
 MVA_TP3_RAMAMONJISOA_Michael.tgz
 context2vec.mscc.model.package.tar.gz
 result/
-Corpus/*
-model/*
+Corpus/
+model/
 Deliverable/
 output.txt
 

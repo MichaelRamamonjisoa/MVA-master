@@ -38,7 +38,9 @@ The program expects the [*UkWac*](http://irsrv2.cs.biu.ac.il/downloads/context2v
 
 Run the following command: 
 
-- $ <b>./run_system.sh number_of_tweets_to_normalize</b> 
+- $ <b>./run_system.sh numTweets</b> 
+
+where numTweets is the number of tweets to be normalized in the text corpus.
 
 ## My approach
 
