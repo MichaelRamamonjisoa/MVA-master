@@ -1,0 +1,3 @@
+[submodule "NLP/TwitterNormalization/context2vec"]
+	path = NLP/TwitterNormalization/context2vec
+	url = https://github.com/orenmel/context2vec.git

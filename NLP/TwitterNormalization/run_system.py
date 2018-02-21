@@ -423,7 +423,7 @@ def correctSlang(text,dictionnary):
             
 def remove_verb_contractions(text):
     clean_text = text
-    
+    # TODO remplacer while--> idx = clean... par une function(text,str)
     idx = clean_text.lower().find("'s")
     while idx != -1 and idx!=1:
         pre_letter = clean_text[idx-2]+clean_text[idx-1]
