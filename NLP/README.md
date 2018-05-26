@@ -1,6 +1,6 @@
 # NLP 
 
-This folder contains my homeworks in the Speech and Natural Language Processing, taught by professors Emmanuel Dupoux (ENS), Benoit Sagot (INRIA), and Neil Zeghidour (Facebook).
+This folder contains my homeworks in the Speech and Natural Language Processing class, taught by professors Emmanuel Dupoux (ENS), Benoit Sagot (INRIA), and Neil Zeghidour (Facebook).
 
 ## References
 
