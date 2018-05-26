@@ -1,7 +1,16 @@
-function y_out = computeReverb(x, m_comb, g_comb, m_allpass, g_allpass)
-if length([m_comb,m_allpass])~=length([g_comb,g_allpass])
-    fprintf('m and g not of the same length')
-end
+function y_out = computeReverb(x, Tr, Fs)
+
+delay_comb = [29.7e-3, 37.1e-3, 41.4e-3, 43.7e-3];
+delay_allpass = [96.83e-3, 32.92e-3];
+
+T = 1/Fs;
+
+m_comb = floor(delay_comb/T);
+m_allpass = floor(delay_allpass/T);
+
+g_comb = 10.^(-3*m_comb*(T/Tr));
+
+g_allpass = exp(m_allpass*log(1-7*T/Tr));
 
 y_out_comb = computeCombFilterOutput(x,m_comb, g_comb);
 y_out = computeAllPassOutput(y_out_comb,m_allpass, g_allpass);
@@ -9,21 +18,12 @@ y_out = computeAllPassOutput(y_out_comb,m_allpass, g_allpass);
 end
 
 function y = computeCombFilterOutput(x, m, g)
-figure(3)
+figure()
 hold on;
 N = length(x);
 
 y = zeros(1,N);
 for i=1:length(m)
-% %     y(n) = x(n-m) + g*y(n-m)
-%     y_temp = zeros(1,N);
-%     for n=(1+m(i)):N
-% %     y_temp = x + g(i)*[x(m(i):end),zeros(1,N-length(x(m(i):end)))];
-% %     y = y + y_temp;
-% % How to initialize the y?
-%        y_temp(n) = x(n-m(i)) + g(i)*y_temp(n-m(i));
-%     end
-%     plot(y_temp);
     y_temp = computeEffectOutput(x,g(i),m(i));
     y = y + y_temp;
     plot(y_temp);

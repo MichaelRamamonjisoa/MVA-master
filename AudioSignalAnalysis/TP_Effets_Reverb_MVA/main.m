@@ -1,3 +1,5 @@
+clear all; close all
+
 [x,Fs] = audioread('Sons/guitare.wav');
 % soundsc(x,Fs);
 x = x';
@@ -6,9 +8,9 @@ n_vec = 0:1:length(x)-1;
 
 
 % Phasing
-f_a = 10;
-amax = 2;
-amin = 0;
+f_a = 5;
+amax = 1.5;
+amin = 0.5;
 a = ((amin+amax)/2)+((amax-amin)/2)*sin(n_vec*2*f_a*pi/Fs);
 
 figure(); 
@@ -19,7 +21,8 @@ p = 1000; %delay
 y = x(p:end) + a(p:end).*x(1:end-p+1);
 
 soundsc(y,Fs);
-fprintf('Press any key to continue')
+fprintf('Reading Phasing Effect. Press any key to continue \n')
+audiowrite('guitare_Phasing.wav',y,Fs);
 pause
 
 % Flanger
@@ -36,6 +39,9 @@ for n=1:length(x)
 end
 
 soundsc(y,Fs);
+fprintf('Reading Flanger Effect. Press any key to continue \n')
+pause
+
 
 pmax = floor(Fs/200);
 pmin = floor(Fs/400);
@@ -48,25 +54,27 @@ for n=1:length(x)
 end
 
 soundsc(y,Fs);
+fprintf('Cancelled f = 200Hz, Press any key to continue \n')
+audiowrite('guitare_Flanger.wav',y,Fs);
+pause
 
 % Artificial reverberation
 c = 340 ;
-
+% Early reverbs
+S = [8,8,3];
+M = [13,20,4];
+X = 50; Y = 50; Z = 50;
+y_Early = computeEarlyReverbs(x,S,M,X,Y,Z,Fs);
+soundsc(y_Early, Fs);
+fprintf('Press any key to continue \n')
+audiowrite('guitare_EarlyReverb.wav',y_Early,Fs);
+pause
 
 % Schroeder reverberator
-delay_comb = [29.7e-3, 37.1e-3, 41.4e-3, 43.7e-3];
-delay_allpass = [96.83e-3, 32.92e-3];
 
 T = 1/Fs;
 Tr = 0.5; %release time of the reverb
 
-m_comb = floor(delay_comb/T);
-m_allpass = floor(delay_allpass/T);
-
-g_comb = 10.^(-3*m_comb*(T/Tr));
-
-g_allpass = exp(m_allpass*log(1-7*T/Tr));
-
-y_out = computeReverb(x, m_comb, g_comb, m_allpass, g_allpass);
+y_out = computeReverb(x, Tr,Fs);
+audiowrite('guitare_Reverb.wav',y_out,Fs);
 soundsc(y_out,Fs);
-
