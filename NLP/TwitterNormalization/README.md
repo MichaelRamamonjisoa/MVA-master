@@ -1,9 +1,6 @@
 MVA - Algorithms for Speech and NLP TD 3
 ========================================
 
-## Contact Information
-For any question/request related to this course, please send an email to this address: mva.speech.language@gmail.com
-
 ## Assignment details
 **The goal of this assignment is to develop a normalisation system that can change raw English tweets into (partially) normalised tweets, suitable for further NLP processing.**
 
